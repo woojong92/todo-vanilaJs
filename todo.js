@@ -13,7 +13,6 @@ let showType = 'all'; // all  | active | complete
 let id = 0;
 let isCheckedAll = false;
 
-
 const setTodos = (newTodos) => {
     todos = newTodos;
 }
@@ -31,11 +30,9 @@ const getCompletedTodos = () => {
 }
 
 const setLeftItems = () => {
-    const leftTodos = getActiveTodos()//todos.filter(todo => todo?.isChecked === false);
+    const leftTodos = getActiveTodos()
     itemsLeftElem.innerHTML = `${leftTodos.length} items left`
 }
-
-
 
 const checkTodo = (event) => {
     const checkboxElem = event.target;
@@ -52,35 +49,31 @@ const deleteTodo = (event) => {
     const delBtnElem = event.target;
     const todoItemElem = delBtnElem.parentNode;
     todoListElem.removeChild(todoItemElem)
-    const newTodos = todos.filter(todo => todo.id !== parseInt(todoItemElem.dataset.id) );
+    const newTodos = getAllTodos().filter(todo => todo.id !== parseInt(todoItemElem.dataset.id) );
     setTodos(newTodos);
     setLeftItems();
 }
 
-
-
 const appendTodos = (text) => {
     const newId = id++;
-    const newTodos = todos.concat({id: newId, isChecked: false, content: text })
+    const newTodos = getAllTodos().concat({id: newId, isChecked: false, content: text })
     setTodos(newTodos)
     paintTodos();
     setLeftItems();
 }
-
 const updateTodo = (text, todoId) => {
-    console.log(text, todoId);
-    const currentTodos = getAllTodos();
-    console.log('currentTodos', currentTodos)
-    const newTodos = currentTodos.map(todo => todo.id === todoId ? ({...todo, content: text}) : todo);
+    const newTodos = getAllTodos().map(todo => todo.id === todoId ? ({...todo, content: text}) : todo);
     setTodos(newTodos);
-    console.log('newTodos', newTodos);
     paintTodos();
 }
 
 const onDbclickTodo = (e) => {
     const todoElem = e.target;
+    console.log(todoElem);
+    const inputText = e.target.innerText;
     const todoItemElem = todoElem.parentNode;
     const inputElem = document.createElement('input');
+    inputElem.value = inputText;
     inputElem.classList.add('edit-input');
     inputElem.addEventListener('keypress', (e)=>{
         if(e.key === 'Enter') {
@@ -99,7 +92,6 @@ const onDbclickTodo = (e) => {
     document.body.addEventListener('click', onClickBody)
     todoItemElem.appendChild(inputElem);
 }
-
 
 const paintTodo = (_todo) => {
     const todoItemElem = document.createElement('li');
@@ -171,25 +163,23 @@ const onClickShowTodosType = (e) => {
 }
 
 const clearTodos = () => {
-    setTodos([])
+    const newTodos = getActiveTodos()
+    setTodos(newTodos)
     paintTodos();
     setLeftItems();
 }
 
 const checkAll = () => {
     checkAllBtnElem.classList.add('checked');
-    checkAllBtnElem.innerText = '✔';
     const newTodos = getAllTodos().map(todo => ({...todo, isChecked: true }) )
     setTodos(newTodos)
 }
 
 const uncheckAll = () => {
     checkAllBtnElem.classList.remove('checked');
-    checkAllBtnElem.innerText = '';
     const newTodos =  getAllTodos().map(todo => ({...todo, isChecked: false }) );
     setTodos(newTodos)
 }
-
 
 const getIsCheckedAll = () => {return isCheckedAll };
 const setIsCheckedAll = (bool) => { isCheckedAll = bool};
@@ -200,11 +190,9 @@ const checkIsCheckedAll = () => {
     if(currentAllTodos.length === currentCompletedTodos.length ){
         setIsCheckedAll(true);
         checkAllBtnElem.classList.add('checked');
-        checkAllBtnElem.innerText = '✔';
     }else {
         setIsCheckedAll(false);
         checkAllBtnElem.classList.remove('checked');
-        checkAllBtnElem.innerText = '';
     }
 }
 
