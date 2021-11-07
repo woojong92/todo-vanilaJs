@@ -1,10 +1,12 @@
 const todoInputElem = document.querySelector('.todo-input');
 const todoListElem = document.querySelector('.todo-list');
 const itemsLeftElem = document.querySelector('.items-left')
+
 const showAllBtnElem = document.querySelector('.show-all-btn');
 const showActiveBtnElem = document.querySelector('.show-active-btn');
 const showCompletedBtnElem = document.querySelector('.show-completed-btn');
-const cleardBtnElem = document.querySelector('.clear-btn');
+const clearCompletedBtnElem = document.querySelector('.clear-completed-btn');
+
 const checkAllBtnElem = document.querySelector('.check-all-btn');
 
 let todos = [];
@@ -162,7 +164,7 @@ const onClickShowTodosType = (e) => {
     paintTodos();
 }
 
-const clearTodos = () => {
+const clearCompletedTodos = () => {
     const newTodos = getActiveTodos()
     setTodos(newTodos)
     paintTodos();
@@ -222,7 +224,7 @@ const init = () => {
     showAllBtnElem.addEventListener('click', onClickShowTodosType);
     showActiveBtnElem.addEventListener('click', onClickShowTodosType);
     showCompletedBtnElem.addEventListener('click', onClickShowTodosType);
-    cleardBtnElem.addEventListener('click', clearTodos);
+    clearCompletedBtnElem.addEventListener('click', clearCompletedTodos);
     checkAllBtnElem.addEventListener('click',  onClickCheckAll)
     setLeftItems();
 }

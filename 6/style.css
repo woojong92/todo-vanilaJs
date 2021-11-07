@@ -1,6 +1,7 @@
 html {
 	height: 100%;
 }
+
 body {
     display: flex;
     flex-wrap: nowrap;
@@ -42,7 +43,7 @@ button {
     border: 0;
 }
 
-.check-all-btn {
+.complete-all-btn {
     color: gray;
     min-width: none;
     min-height: none;
@@ -55,7 +56,7 @@ button {
     
 }
 
-.check-all-btn.checked {
+.complete-all-btn.checked {
     color: green
 }
 
@@ -112,7 +113,7 @@ button {
 }
 
 .delBtn {
-    opacity: 0;
+    opacity: 1;
     width: 3rem;
     height: 3rem;
     font-size: 1.5rem;
